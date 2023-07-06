@@ -5,7 +5,7 @@
  * @author  Dallas Richmond, LocalNewsTV
  */
 import { useState } from 'react';
-import { Slider, Toggle } from '../../components/common';
+import { Slider, Toggle, Button } from '../../components/common';
 import { NavButton } from '../../components/appNav';
 import { BannerTip } from '../../components/utility';
 import {
@@ -78,6 +78,14 @@ export default function Settings() {
     updateSettings();
   };
 
+  // /**
+  //  * TODO
+  //  */
+  const cacheFiles = async () => {
+    const cache = await caches.open('tileCache');
+    await cache.add('/mapTiles/**');
+  }
+
   return (
     <SettingsWrapper>
       <BannerTip
@@ -147,6 +155,14 @@ export default function Settings() {
             ariaLabel={SettingsContent.analytics[lang]}
             onChange={handleAnalyticsToggleChange}
             value={analyticsToggleValue}
+          />
+          <br />
+          <Button 
+            handleClick={cacheFiles}
+            text={'test!'}
+            size={'md'} 
+            variant={'primary'} 
+            disabled={false}
           />
         </Section>
         <Section>

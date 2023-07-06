@@ -5,9 +5,13 @@ export default defineConfig({
   plugins: [
     VitePWA({
       registerType: "autoUpdate",
-      injectRegister: 'auto',
+      // excludeAssets: [
+      //   '/mapTiles/**', // Exclude files from the precache
+      // ],
+      // injectRegister: 'auto',
       includeAssets: ["**/*"],
       workbox: {
+        importScripts: ["sw-code.js"],
         globPatterns: ["**/*"],
         cleanupOutdatedCaches: true,
         sourcemap: true,
@@ -36,6 +40,14 @@ export default defineConfig({
             type: "image/png",
             purpose: "any maskable",
           },
+        ],
+      },
+      injectRegister: 'script',
+      injectRegisterOptions: {
+        // swSrc: './src/service-worker.js',
+        // swSrc: './src/frontend-pwa/dist/sw.js',
+        exclude: [
+          '/mapTiles/**', // Designate the entire folder for exclusion
         ],
       },
     }),
